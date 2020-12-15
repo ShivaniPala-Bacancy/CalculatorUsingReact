@@ -50,33 +50,69 @@ class Layout extends Component{
                     break;
 
             }
-        
+        // console.log(eval("2+6*2+6"))
         this.setState({input: ans});
         this.num2="";
         this.num1="";
         this.operator="";
     }
-
-
-    solve=(equ)=>{
-        let str= this.state.input;
-        const ope= ['+' , '-' ,'*' ,'/' ,'%']
-        for(let i=0;i< str.length; i++){
-            if(ope.includes(str[i])){
-                this.num1= str.substring(0,i);
-                this.num2= str.substring(i+1);
-                this.operator= str[i];
-            }
+    square=()=>{
+        let str= this.state.input
+        // console.log(str[str.length-1])
+        // let n= Number(str[str.length-1]) 
+        // let sqr = n*n
+        // str= str.substring(0, (str.length-2))
+        // str= str+ String(sqr)
+        let i= str.length-1;
+        let a=""
+        while(str[i]>=0 && str[i]<=9){
+            a += str[i]
+            i--;
         }
-        console.log("num1: " + this.num1);
-        const val=Number(this.num1)?true:false
-        console.log("num1 is number: " + val)
-        console.log("num2: " + this.num2);
-        
-        const val2=Number(this.num2)?true:false
-        console.log("num1 is number: " + val2)
-        this.solveEquation(this.num1, this.num2, this.operator);
+        let fstr= str.substring(0, i+1);
+        console.log(fstr)
+        a= a.split('').reverse().join('');
+
+
+        let n= Number(a);
+        let squ= n*n;
+        str= fstr + squ;
+        this.setState({input: str});
     }
+
+    solve= (equ) =>{
+        
+        let str= equ;
+        // let i= str.search("^2");
+        // console.log(str.search("^2"))
+        // if(i!==-1){
+        //     let r= "*" + str[i-1] 
+        //     str.replace("^2", r)
+
+        // }
+        // console.log(i)
+        const ans= eval(str)
+        this.setState({input: ans})
+    }
+    // solve=(equ)=>{
+    //     let str= this.state.input;
+    //     const ope= ['+' , '-' ,'*' ,'/' ,'%']
+    //     for(let i=0;i< str.length; i++){
+    //         if(ope.includes(str[i])){
+    //             this.num1= str.substring(0,i);
+    //             this.num2= str.substring(i+1);
+    //             this.operator= str[i];
+    //         }
+    //     }
+    //     console.log("num1: " + this.num1);
+    //     const val=Number(this.num1)?true:false
+    //     console.log("num1 is number: " + val)
+    //     console.log("num2: " + this.num2);
+        
+    //     const val2=Number(this.num2)?true:false
+    //     console.log("num1 is number: " + val2)
+    //     this.solveEquation(this.num1, this.num2, this.operator);
+    // }
     delete=()=>{
         let str= String(this.state.input);
         console.log( typeof(str))
@@ -84,6 +120,7 @@ class Layout extends Component{
 
         this.setState({input: editedText})
     }
+    
 
     render(){
         return(
@@ -159,6 +196,20 @@ class Layout extends Component{
                         <Button fillText="%" clicked={this.setOperator.bind(this, "%")} />
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <Button fillText="x^2" clicked={this.square} />
+                    </td>
+                    
+                    <td>
+                        <Button fillText="(" clicked={this.setOperator.bind(this, "(")} />
+                    </td>
+                    
+                    <td>
+                        <Button fillText=")" clicked={this.setOperator.bind(this, ")")} />
+                    </td>
+                </tr>
+
                 </tbody>
             </table>
 
