@@ -1,0 +1,16 @@
+.Red{
+    background-color: red;
+}
+.Green{
+    background-color: green;
+}
+.Blue{
+    background-color: blue;
+}
+.Button{
+    width: 80px;
+    border-radius: 5px;
+    font-size: larger;
+    
+    height: 40px;
+}
