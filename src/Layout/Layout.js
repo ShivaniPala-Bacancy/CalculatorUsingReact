@@ -4,65 +4,19 @@ import Button from '../Buttons/Button'
 class Layout extends Component{
     constructor(props){
         super(props)
-        this.inputRef= React.createRef();
         this.state= {
             input: ""
-
         }
-        this.num1="";
-        this.num2="";
-        this.operator="";
     }
-    clicked= (abc) =>{
-        let val = this.state.input + abc;
-        this.setState({input: val})
-    }
-    setOperator= (op) =>{
-        this.operator= op;
-        let val = this.state.input + op;
+    buttonClicked= (btnText) =>{
+        let val = this.state.input + btnText;
         this.setState({input: val})
     }
     clear =() => {
         this.setState({input: ""})
     }
-    solveEquation=(n1, n2, ope) =>{
-        let ans;
-            switch(ope) {
-                case "+":
-                    ans= parseFloat(n1) + parseFloat(n2);
-                    break;
-                case '-':
-                    ans= parseFloat(n1) - parseFloat(n2);
-                    break;
-
-                case '*':
-                    ans= parseFloat(n1) * parseFloat(n2);
-                    break;
-
-                case '/':
-                    ans= parseFloat(n1) / parseFloat(n2);
-                    break;
-                case '%':
-                    ans= parseFloat(n1) % parseFloat(n2);
-                    break;
-                default:
-                    ans= "something went wrong";
-                    break;
-
-            }
-        // console.log(eval("2+6*2+6"))
-        this.setState({input: ans});
-        this.num2="";
-        this.num1="";
-        this.operator="";
-    }
     square=()=>{
         let str= this.state.input
-        // console.log(str[str.length-1])
-        // let n= Number(str[str.length-1]) 
-        // let sqr = n*n
-        // str= str.substring(0, (str.length-2))
-        // str= str+ String(sqr)
         let i= str.length-1;
         let a=""
         while(str[i]>=0 && str[i]<=9){
@@ -72,71 +26,38 @@ class Layout extends Component{
         let fstr= str.substring(0, i+1);
         console.log(fstr)
         a= a.split('').reverse().join('');
-
-
         let n= Number(a);
         let squ= n*n;
         str= fstr + squ;
         this.setState({input: str});
     }
-
     solve= (equ) =>{
-        
         let str= equ;
-        // let i= str.search("^2");
-        // console.log(str.search("^2"))
-        // if(i!==-1){
-        //     let r= "*" + str[i-1] 
-        //     str.replace("^2", r)
-
-        // }
-        // console.log(i)
         const ans= eval(str)
         this.setState({input: ans})
     }
-    // solve=(equ)=>{
-    //     let str= this.state.input;
-    //     const ope= ['+' , '-' ,'*' ,'/' ,'%']
-    //     for(let i=0;i< str.length; i++){
-    //         if(ope.includes(str[i])){
-    //             this.num1= str.substring(0,i);
-    //             this.num2= str.substring(i+1);
-    //             this.operator= str[i];
-    //         }
-    //     }
-    //     console.log("num1: " + this.num1);
-    //     const val=Number(this.num1)?true:false
-    //     console.log("num1 is number: " + val)
-    //     console.log("num2: " + this.num2);
-        
-    //     const val2=Number(this.num2)?true:false
-    //     console.log("num1 is number: " + val2)
-    //     this.solveEquation(this.num1, this.num2, this.operator);
-    // }
     delete=()=>{
         let str= String(this.state.input);
         console.log( typeof(str))
         const editedText = str.slice(0, -1) 
-
         this.setState({input: editedText})
     }
-    
 
     render(){
         return(
         <div className={styles.Div}>
-            <p className={styles.P} ref={this.inputRef}>{this.state.input}</p>
+            <p className={styles.P}>{this.state.input}</p>
             <table className={styles.Table}>
                 <tbody>
                 <tr>
                     <td>
-                        <Button fillText="7" clicked={this.clicked.bind(this, "7")} />
+                        <Button fillText="7" clicked={this.buttonClicked.bind(this, "7")} />
                     </td>
                     <td>
-                        <Button fillText="8" clicked={this.clicked.bind(this, "8")} />
+                        <Button fillText="8" clicked={this.buttonClicked.bind(this, "8")} />
                     </td>
                     <td>
-                        <Button fillText="9" clicked={this.clicked.bind(this, "9")} />
+                        <Button fillText="9" clicked={this.buttonClicked.bind(this, "9")} />
                     </td>
                     <td>
                         <Button fillText="Del" clicked={this.delete} />
@@ -147,53 +68,53 @@ class Layout extends Component{
                 </tr>
                 <tr>
                     <td>
-                    <Button fillText="4" clicked={this.clicked.bind(this, "4")} />
+                    <Button fillText="4" clicked={this.buttonClicked.bind(this, "4")} />
                     </td>
                     <td>
-                    <Button fillText="5" clicked={this.clicked.bind(this, "5")} />
+                    <Button fillText="5" clicked={this.buttonClicked.bind(this, "5")} />
                     </td>
                     <td>
-                    <Button fillText="6" clicked={this.clicked.bind(this, "6")} />
+                    <Button fillText="6" clicked={this.buttonClicked.bind(this, "6")} />
                     </td>
                     <td>
-                    <Button fillText="*" clicked={this.setOperator.bind(this, "*")} />
+                    <Button fillText="*" clicked={this.buttonClicked.bind(this, "*")} />
                     </td>
                     <td>
-                    <Button fillText="/" clicked={this.setOperator.bind(this, "/")} />
+                    <Button fillText="/" clicked={this.buttonClicked.bind(this, "/")} />
                     </td>
                 </tr>
                 <tr>           
                     <td>
-                    <Button fillText="1" clicked={this.clicked.bind(this, "1")} />
+                    <Button fillText="1" clicked={this.buttonClicked.bind(this, "1")} />
                     </td>
                     <td>
-                    <Button fillText="2" clicked={this.clicked.bind(this, "2")} />
+                    <Button fillText="2" clicked={this.buttonClicked.bind(this, "2")} />
                     </td>
                     <td>
-                    <Button fillText="3" clicked={this.clicked.bind(this, "3")} />
+                    <Button fillText="3" clicked={this.buttonClicked.bind(this, "3")} />
                     </td>
                     <td>
-                    <Button fillText="+" clicked={this.setOperator.bind(this, "+")} />
+                    <Button fillText="+" clicked={this.buttonClicked.bind(this, "+")} />
                     </td>
                     <td>
-                    <Button fillText="-" clicked={this.setOperator.bind(this, "-")} />
+                    <Button fillText="-" clicked={this.buttonClicked.bind(this, "-")} />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    <Button fillText="00" clicked={this.clicked.bind(this, "00")} />
+                    <Button fillText="00" clicked={this.buttonClicked.bind(this, "00")} />
                     </td>
                     <td>
-                    <Button fillText="0" clicked={this.clicked.bind(this, "0")} />
+                    <Button fillText="0" clicked={this.buttonClicked.bind(this, "0")} />
                     </td>
                     <td>
-                    <Button fillText="." clicked={this.clicked.bind(this, ".")} />
+                    <Button fillText="." clicked={this.buttonClicked.bind(this, ".")} />
                     </td>
                     <td>
                     <Button fillText="=" clicked={this.solve.bind(this, this.state.input)} />
                     </td>
                     <td>
-                        <Button fillText="%" clicked={this.setOperator.bind(this, "%")} />
+                        <Button fillText="%" clicked={this.buttonClicked.bind(this, "%")} />
                     </td>
                 </tr>
                 <tr>
@@ -202,11 +123,11 @@ class Layout extends Component{
                     </td>
                     
                     <td>
-                        <Button fillText="(" clicked={this.setOperator.bind(this, "(")} />
+                        <Button fillText="(" clicked={this.buttonClicked.bind(this, "(")} />
                     </td>
                     
                     <td>
-                        <Button fillText=")" clicked={this.setOperator.bind(this, ")")} />
+                        <Button fillText=")" clicked={this.buttonClicked.bind(this, ")")} />
                     </td>
                 </tr>
 
